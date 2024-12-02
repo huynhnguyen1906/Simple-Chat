@@ -9,6 +9,8 @@ while (name && name.length > 50) {
 if (!name) {
 	document.body.innerHTML = "";
 } else {
+	socket.emit("user joined", name);
+
 	const input = document.querySelector("#input");
 	const messages = document.querySelector("#messages");
 	const sendButton = document.querySelector("#sendButton");
@@ -45,14 +47,39 @@ if (!name) {
 		addMessage(message, message.name === name);
 	});
 
+	socket.on("user joined", (userName) => {
+		if (userName === name) {
+			addMessage(
+				{
+					name: "System",
+					value: "<span>あなた</span> がルームに参加しました。",
+				},
+				false
+			);
+		} else {
+			addMessage({ name: "System", value: `<span>${userName}</span> さんが参加しました。` }, false);
+		}
+	});
 	function addMessage(message, isMine) {
 		const messageContent = message.value.replace(/\n/g, "<br>");
-		let messageHTML = `
-			<div class="${isMine ? "myMessage" : "otherMessage"}">
-				${!isMine ? `<span>${message.name}</span>` : ""}
-				<p>${messageContent}</p>
-			</div>
-		`;
+		let messageHTML;
+
+		if (message.name === "System") {
+			messageHTML = `
+            <div class="systemMessage">
+                <p>${messageContent}</p>
+            </div>
+        `;
+		} else {
+			// Nếu là tin nhắn thông thường
+			messageHTML = `
+            <div class="${isMine ? "myMessage" : "otherMessage"}">
+                ${!isMine ? `<span>${message.name}</span>` : ""}
+                <p>${messageContent}</p>
+            </div>
+        `;
+		}
+
 		messages.insertAdjacentHTML("beforeend", messageHTML);
 		if (isMine) {
 			messages.scrollTop = messages.scrollHeight;

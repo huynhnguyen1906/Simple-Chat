@@ -97,6 +97,26 @@ h1 {
 	color: #525252;
 	opacity: 0.8;
 }
+
+.systemMessage {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.systemMessage p {
+	color: #525252;
+	opacity: 0.8;
+	padding: 0 !important;
+	border-radius: 20px;
+	font-size: 14px;
+}
+.systemMessage span {
+	color: #2b2b2b;
+	opacity: 0.8;
+	border-radius: 20px;
+	font-size: 14px;
+	font-weight: bolder;
+}
 #form {
 	display: flex;
 	padding: 10px;
