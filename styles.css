@@ -150,6 +150,7 @@ h1 {
 	border: 1px solid #ddd;
 	border-radius: 20px;
 	outline: none;
+	padding-right: 65px;
 }
 #input::-webkit-scrollbar {
 	display: none;
@@ -171,7 +172,7 @@ button {
 	position: absolute;
 	top: 51%;
 	transform: translateY(-50%);
-	right: 100px;
+	right: 95px;
 	background: none;
 	border: none;
 	cursor: pointer;
@@ -218,7 +219,7 @@ button {
 	position: absolute;
 	top: 51%;
 	transform: translateY(-50%);
-	right: 130px;
+	right: 125px;
 	background: none;
 	border: none;
 	cursor: pointer;
