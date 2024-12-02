@@ -1,0 +1,138 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	font-family: Arial, sans-serif;
+	background-color: #e5e5e5;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100%;
+	margin: 0;
+}
+.chatContainer {
+	background-color: #aeeaee;
+	width: 100%;
+	max-width: 720px;
+	height: 768px;
+	border-radius: 20px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+@media screen and (max-width: 720px) {
+	body {
+		height: 100%;
+	}
+	.chatContainer {
+		height: 100dvh;
+		max-height: 100vh;
+		border-radius: 0;
+	}
+}
+
+h1 {
+	background-color: #62bd62;
+	color: white;
+	text-align: center;
+	padding: 10px;
+	margin: 0;
+}
+
+#messages {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	flex: 1;
+	padding: 15px;
+	overflow-y: auto;
+	scrollbar-width: none;
+	margin: 0;
+	width: 100%;
+}
+#messages::-webkit-scrollbar {
+	display: none;
+}
+#messages p {
+	padding: 10px;
+	border-radius: 10px;
+	max-width: 60%;
+	word-break: break-all;
+	word-wrap: break-word;
+	color: #222;
+}
+
+.myMessage {
+	display: flex;
+	justify-content: flex-end;
+	align-self: flex-end;
+	width: 100%;
+}
+.myMessage p {
+	width: fit-content;
+	background-color: #62bd62;
+	color: white;
+}
+
+.otherMessage {
+	width: 100%;
+	align-self: flex-start;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 3px;
+}
+.otherMessage p {
+	width: fit-content;
+	background-color: #f9f9f9;
+}
+.otherMessage span {
+	font-size: 12px;
+	padding: 0 10px;
+	color: #525252;
+	opacity: 0.8;
+}
+#form {
+	display: flex;
+	padding: 10px;
+	background-color: #f9f9f9;
+	border-top: 1px solid #ddd;
+	align-items: flex-end;
+}
+
+#input {
+	max-width: 90%;
+	max-height: 150px;
+	overflow-y: auto;
+	scrollbar-width: none;
+	flex: 1;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	border-radius: 20px;
+	outline: none;
+}
+#input::-webkit-scrollbar {
+	display: none;
+}
+button {
+	background-color: #62bd62;
+	height: auto;
+	color: white;
+	border: none;
+	padding: 10px 15px;
+	margin-left: 10px;
+	font-size: 16px;
+	border-radius: 5px;
+	cursor: pointer;
+	max-height: 45px;
+}
+
+button:hover {
+	background-color: #00a000;
+}
