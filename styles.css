@@ -97,7 +97,20 @@ h1 {
 	color: #525252;
 	opacity: 0.8;
 }
-
+.imageMessage {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 125px;
+	height: 125px;
+}
+.imageMessage img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 10px;
+	overflow: hidden;
+}
 .systemMessage {
 	display: flex;
 	justify-content: center;
@@ -123,6 +136,7 @@ h1 {
 	background-color: #f9f9f9;
 	border-top: 1px solid #ddd;
 	align-items: flex-end;
+	position: relative;
 }
 
 #input {
@@ -153,6 +167,107 @@ button {
 	max-height: 45px;
 }
 
-button:hover {
-	background-color: #00a000;
+.emoji-button {
+	position: absolute;
+	top: 51%;
+	transform: translateY(-50%);
+	right: 100px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	width: 22px;
+	height: 22px;
+	background-image: url("./emoji.webp");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 0;
+	margin: 0;
+}
+
+.emoji-popup {
+	display: none;
+	position: absolute;
+	bottom: 50px;
+	right: 100px;
+	background: white;
+	border: 1px solid #ccc;
+	padding: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	max-height: 150px;
+	overflow-y: auto;
+	width: 285px;
+	scrollbar-width: none;
+	border-radius: 10px;
+}
+.emoji-popup::-webkit-scrollbar {
+	display: none;
+}
+
+.emoji-popup .emoji {
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.emoji-popup .emoji:hover {
+	background: #f0f0f0;
+}
+
+.sticker-button {
+	position: absolute;
+	top: 51%;
+	transform: translateY(-50%);
+	right: 130px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	width: 22px;
+	height: 22px;
+	background-image: url("./stamp.webp");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 0;
+	margin: 0;
+}
+
+.sticker-popup {
+	display: none;
+	position: absolute;
+	bottom: 50px;
+	right: 80px;
+	background: white;
+	border: 1px solid #ccc;
+	padding: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	max-height: 200px;
+	overflow-y: auto;
+	width: 300px;
+	scrollbar-width: none;
+	border-radius: 10px;
+}
+.sticker-box {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+.sticker-box div {
+	width: 85px;
+	height: 85px;
+}
+.sticker-box div img {
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}
+.sticker-popup::-webkit-scrollbar {
+	display: none;
+}
+
+.sticker:hover {
+	background: #f0f0f0;
 }

@@ -14,6 +14,10 @@ if (!name) {
 	const input = document.querySelector("#input");
 	const messages = document.querySelector("#messages");
 	const sendButton = document.querySelector("#sendButton");
+	const emojiButton = document.querySelector("#emojiButton");
+	const stickerButton = document.querySelector("#stickerButton");
+	const emojiPopup = document.querySelector("#emojiPopup");
+	const stickerPopup = document.querySelector("#stickerPopup");
 
 	function sendMessage() {
 		const messageContent = input.innerText.trim();
@@ -43,6 +47,38 @@ if (!name) {
 		input;
 	});
 
+	emojiButton.addEventListener("click", () => {
+		emojiPopup.style.display = emojiPopup.style.display === "block" ? "none" : "block";
+	});
+
+	stickerButton.addEventListener("click", () => {
+		stickerPopup.style.display = stickerPopup.style.display === "block" ? "none" : "block";
+	});
+
+	emojiPopup.addEventListener("click", (e) => {
+		if (e.target.classList.contains("emoji")) {
+			input.innerText += e.target.innerText;
+			emojiPopup.style.display = "none";
+			sendMessage();
+		}
+	});
+
+	stickerPopup.addEventListener("click", (e) => {
+		if (e.target.classList.contains("sticker")) {
+			socket.emit("chat", { name, value: `<img src="${e.target.src}" alt="sticker">` });
+			stickerPopup.style.display = "none";
+		}
+	});
+
+	document.addEventListener("click", (e) => {
+		if (!emojiPopup.contains(e.target) && e.target !== emojiButton) {
+			emojiPopup.style.display = "none";
+		}
+		if (!stickerPopup.contains(e.target) && e.target !== stickerButton) {
+			stickerPopup.style.display = "none";
+		}
+	});
+
 	socket.on("chat", (message) => {
 		addMessage(message, message.name === name);
 	});
@@ -60,6 +96,7 @@ if (!name) {
 			addMessage({ name: "System", value: `<span>${userName}</span> さんが参加しました。` }, false);
 		}
 	});
+
 	function addMessage(message, isMine) {
 		const messageContent = message.value.replace(/\n/g, "<br>");
 		let messageHTML;
@@ -71,13 +108,21 @@ if (!name) {
             </div>
         `;
 		} else {
-			// Nếu là tin nhắn thông thường
-			messageHTML = `
-            <div class="${isMine ? "myMessage" : "otherMessage"}">
-                ${!isMine ? `<span>${message.name}</span>` : ""}
-                <p>${messageContent}</p>
-            </div>
-        `;
+			if (messageContent.includes("<img")) {
+				messageHTML = `
+                <div class="${isMine ? "myMessage" : "otherMessage"}">
+                    ${!isMine ? `<span>${message.name}</span>` : ""}
+                    <div class="imageMessage">${messageContent}</div>
+                </div>
+            `;
+			} else {
+				messageHTML = `
+                <div class="${isMine ? "myMessage" : "otherMessage"}">
+                    ${!isMine ? `<span>${message.name}</span>` : ""}
+                    <p>${messageContent}</p>
+                </div>
+            `;
+			}
 		}
 
 		messages.insertAdjacentHTML("beforeend", messageHTML);
