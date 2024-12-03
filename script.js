@@ -35,8 +35,18 @@ if (!name) {
 
 	sendButton.addEventListener("click", sendMessage);
 
+	let isComposing = false;
+
+	input.addEventListener("compositionstart", () => {
+		isComposing = true;
+	});
+
+	input.addEventListener("compositionend", () => {
+		isComposing = false;
+	});
+
 	input.addEventListener("keydown", (e) => {
-		if (e.key === "Enter" && !e.shiftKey) {
+		if (e.key === "Enter" && !e.shiftKey && !isComposing) {
 			e.preventDefault();
 			sendMessage();
 		}
@@ -155,9 +165,9 @@ if (!name) {
 			.map(
 				(user) => `
             <div class="user">
-			<span class="icon"></span>
-			<span>${user}</span>
-			<span class="status"></span>
+            <span class="icon"></span>
+            <span>${user}</span>
+            <span class="status"></span>
             </div>
         `
 			)
