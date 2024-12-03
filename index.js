@@ -6,6 +6,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+let users = [];
+
 // Serve static files from the current directory
 app.use(express.static(__dirname));
 
@@ -18,7 +20,10 @@ io.on("connection", (socket) => {
 	console.log("a user connected");
 
 	socket.on("user joined", (userName) => {
+		socket.userName = userName;
+		users.push(userName);
 		io.emit("user joined", userName);
+		io.emit("users", users);
 	});
 
 	socket.on("chat", (message) => {
@@ -28,6 +33,15 @@ io.on("connection", (socket) => {
 
 	socket.on("disconnect", () => {
 		console.log("a user disconnected");
+		if (socket.userName) {
+			users = users.filter((user) => user !== socket.userName);
+			io.emit("user left", socket.userName);
+			io.emit("users", users);
+		}
+	});
+
+	socket.on("get users", () => {
+		socket.emit("users", users);
 	});
 });
 

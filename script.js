@@ -18,6 +18,8 @@ if (!name) {
 	const stickerButton = document.querySelector("#stickerButton");
 	const emojiPopup = document.querySelector("#emojiPopup");
 	const stickerPopup = document.querySelector("#stickerPopup");
+	const userButton = document.querySelector("#userButton");
+	const userPopup = document.querySelector("#userPopup");
 
 	function sendMessage() {
 		const messageContent = input.innerText.trim();
@@ -77,6 +79,13 @@ if (!name) {
 		if (!stickerPopup.contains(e.target) && e.target !== stickerButton) {
 			stickerPopup.style.display = "none";
 		}
+		if (!userPopup.contains(e.target) && e.target !== userButton) {
+			userPopup.style.display = "none";
+		}
+	});
+
+	userButton.addEventListener("click", () => {
+		userPopup.style.display = userPopup.style.display === "block" ? "none" : "block";
 	});
 
 	socket.on("chat", (message) => {
@@ -95,6 +104,12 @@ if (!name) {
 		} else {
 			addMessage({ name: "System", value: `<span>${userName}</span> さんが参加しました。` }, false);
 		}
+		updateUserList();
+	});
+
+	socket.on("user left", (userName) => {
+		addMessage({ name: "System", value: `<span>${userName}</span> さんが退出しました。` }, false);
+		updateUserList();
 	});
 
 	function addMessage(message, isMine) {
@@ -130,4 +145,22 @@ if (!name) {
 			messages.scrollTop = messages.scrollHeight;
 		}
 	}
+
+	function updateUserList() {
+		socket.emit("get users");
+	}
+
+	socket.on("users", (users) => {
+		userPopup.innerHTML = users
+			.map(
+				(user) => `
+            <div class="user">
+			<span class="icon"></span>
+			<span>${user}</span>
+			<span class="status"></span>
+            </div>
+        `
+			)
+			.join("");
+	});
 }

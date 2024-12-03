@@ -23,6 +23,16 @@ body {
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
+	position: relative;
+}
+
+h1 {
+	background-color: #62bd62;
+	color: white;
+	text-align: center;
+	padding: 10px;
+	margin: 0;
+	position: relative;
 }
 
 @media screen and (max-width: 720px) {
@@ -34,16 +44,11 @@ body {
 		max-height: 100vh;
 		border-radius: 0;
 	}
+	h1 {
+		text-align: left;
+		padding-left: 20px;
+	}
 }
-
-h1 {
-	background-color: #62bd62;
-	color: white;
-	text-align: center;
-	padding: 10px;
-	margin: 0;
-}
-
 #messages {
 	display: flex;
 	flex-direction: column;
@@ -271,4 +276,62 @@ button {
 
 .sticker:hover {
 	background: #f0f0f0;
+}
+
+.user-button {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 20px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	width: 30px;
+	height: 30px;
+	background-image: url("./user.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin-left: 10px;
+}
+
+.user-popup {
+	display: none;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	background: white;
+	border: 1px solid #ccc;
+	padding: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	max-height: 200px;
+	overflow-y: auto;
+	width: 200px;
+	scrollbar-width: none;
+	border-radius: 10px;
+	color: #222;
+	font-size: 16px;
+}
+
+.user-popup .user {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 10px;
+	padding: 5px 0;
+}
+
+.user-popup .user .status {
+	width: 10px;
+	height: 10px;
+	background-color: green;
+	border-radius: 50%;
+}
+.user .icon {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	overflow: hidden;
+	background-color: #cfcfcf;
 }
