@@ -45,7 +45,7 @@ io.on("connection", (socket) => {
 	});
 });
 
-// Start the server on port 5000
-server.listen(5000, () => {
-	console.log("Example app listening on port 5000!");
+// Start the server on port 5050
+server.listen(5050, () => {
+	console.log("Example app listening on port 5050!");
 });
